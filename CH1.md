@@ -20,43 +20,12 @@ mainfont: UbuntuMono Nerd Font
 
 1. 發電機(generator, G)
     發電機是把動能(旋轉、機械能)或其它形式的能量轉化成電能的裝置。一般的發電機是通過原動機先將各類一次能源蘊藏的能量轉換為機械能，然後通過發電機轉換為電能，經輸電、配電網路送往各種用電場所。 法拉第圓盤(Faraday disk)![](Faraday_disk_generator.jpg)是英國科學家法拉利用電磁感應原理發明了歷史上第一部發電機。太陽能發電(Solar power)和傳統發電機構造不同，不用旋轉就可以發電。利用磁場產生電(電磁感應)。
-
-\begin{circuitikz}
-\draw (0, 0)
-  to node[elmech]{G} (0, 0);
-\end{circuitikz}
-
+\begin{circuitikz}\draw (0, 0)  to node[elmech]{G} (0, 0);\end{circuitikz}
 2. 電動機(Motor, M)
-    電動機是把電能轉為動能的裝置(旋轉、機械能)。俗稱「馬達」。利用電產生磁場(電磁效應)。
-
-\begin{circuitikz}
-\draw (0, 0)
-  to node[elmech]{M} (0, 0);
-\end{circuitikz}
-
+    電動機是把電能轉為動能的裝置(旋轉、機械能)。俗稱「馬達」。利用電產生磁場(電磁效應)。\begin{circuitikz}\draw (0, 0)  to node[elmech]{M} (0, 0);\end{circuitikz}
 3. 變壓器(transformer, TR)
-    變壓器是把一次側的電壓轉為二次側的電壓的裝置。可能從高電壓轉低電壓，或低電壓轉高電壓。只能用在交流電。
-
-美國
-
-\begin{circuitikz}
-\draw (0, 0)
-  to node[transformer core]{} (0, 0);
-\end{circuitikz}
-
-可愛版
-
-\begin{circuitikz}
-\draw (0, 0)
-  to node[transformer core, cute]{} (0, 0);
-\end{circuitikz}
-
-歐洲標準
-
-\begin{circuitikz}[european]
-\draw (0, 0)
-  to node[transformer core]{} (0, 0);
-\end{circuitikz}
+    變壓器是把一次側的電壓轉為二次側的電壓的裝置。可能從高電壓轉低電壓，或低電壓轉高電壓。只能用在交流電。美國 \begin{circuitikz}\draw (0, 0) to node[transformer core]{} (0, 0);\end{circuitikz} 可愛版 \begin{circuitikz} \draw (0, 0) to node[transformer core, cute]{} (0, 0); \end{circuitikz}歐洲標準\begin{circuitikz}[european]\draw (0, 0)
+  to node[transformer core]{} (0, 0);\end{circuitikz}
  
 ## 依電源性質區分
 
@@ -150,13 +119,13 @@ mainfont: UbuntuMono Nerd Font
 * 磁鐵：具有磁力，可吸引鐵 . 鈷 . 鎳及其部分合金(通稱為磁性物質)，而不會吸引其他材質的製品。
 * 磁力：像磁鐵這類的物質所具有互相吸引或排斥的一種超距力。
 * 磁極：任何形狀的磁鐵均具有兩個不同且磁力最強的磁性端，分別稱為N極(指向北方的一端或稱指北極)及S極(指向南方的一端或稱指南極)。
-* 兩根磁鐵的磁極互相靠近時，同名極會相斥，異名極相吸。 ![](SN.jpg){width=20%, height=20%}
+* 兩根磁鐵的磁極互相靠近時，同名極會相斥，異名極相吸。
 * 磁極無法單獨存在：將磁鐵截斷成兩半或數小段，每段仍然具有N極及S極。
 * 磁化：將不具磁性的磁性物質(如鐵.鈷.鎳等靠近磁鐵而暫時具有磁性的現象。
 * 暫時磁鐵：像鐵釘這類物質，一旦將吸附的磁鐵移除後，便無法長期保有磁性的物質。
-* 永久磁鐵：像鋼釘這類物質，即使將吸附的磁鐵移除後，仍可長期保有磁性的物質。![](NN.jpg){width=20%, height=20%}
+* 永久磁鐵：像鋼釘這類物質，即使將吸附的磁鐵移除後，仍可長期保有磁性的物質。
 * 磁力線(Magnetic line of force)：磁鐵周遭的鐵粉受到磁力的吸引，而排列出許多圍繞磁鐵的圓滑曲線，可用來表示磁力作用範圍的假想曲線。
-* 以 ![](O.png) 流出紙面 ![](X.png) 流入紙面
+* 以 $\bigodot$ 代表磁力線流出紙面 $\bigotimes$ 代表磁力線流入紙面
 * 磁力線的性質：
   1. 磁力線的走向：外部由磁鐵的N極到S極，內部由S極到N極，形成一封閉的曲線。
   2. 磁力線永遠不會相交。
@@ -380,11 +349,11 @@ F = B I \ell \sin \theta (N)
   * 拇指: 運動(因)
 * 法拉第電磁感應定律: 
     \begin{equation}
-    E = | N \frac{\triangle \phi}{\triangle t} | (V)
+    E = | N \frac{\Delta \phi}{\Delta t} | (\text{V})
     \end{equation}
 * 楞次定律: 電磁感應電勢(E)的極性，係反抗原有磁交鏈($N \phi$)的變化。在法拉第電磁感應定律加上負號就是楞次定律，表示感應電勢的極性為抵抗原磁通的方向。
     \begin{equation}
-    E = - N \frac{\triangle \phi}{\triangle t} (V)
+    E = - N \frac{\Delta \phi}{\Delta t} (\text{V})
     \end{equation}
 * 長直導體在磁場中的感應電勢
 
@@ -428,153 +397,11 @@ I = \frac{\mathcal{E}}{R}=\frac{vBL}{R}
 
 \begin{equation}
 \begin{split}
-\mathcal {E} &=  N \frac{\triangle \phi}{\triangle t} (N = 1, \triangle \phi = B \triangle A) \\
-  &= \frac{B \triangle A}{\triangle} t (\triangle A = \triangle s l) \\ 
-  &= \frac{B(\triangle s l)}{\triangle t} (v = \frac{\triangle s}{\triangle t}) \\
+\mathcal {E} &=  N \frac{\Delta \phi}{\Delta t} (N = 1, \Delta \phi = B \Delta A) \\
+  &= \frac{B \Delta A}{\Delta} t (\Delta A = \Delta s l) \\ 
+  &= \frac{B(\Delta s l)}{\Delta t} (v = \frac{\Delta s}{\Delta t}) \\
   &= B L v \sin \theta (V)
 \end{split}
 \end{equation}
 
 * 當運動方向與磁場方向平行時($sin(0) = 0$)，長直導體感應電勢 $E = 0$
-
-## 附錄: 場線的圖形(2D)
-
-場線(field line)可以用來展示電場和磁場，可以用數學的散度
-(Divergence)或curl來繪製向量圖
-
-假設每個 $(x, y)$ 座標都對應到 $[u, v]$ 的向量(2D)，可以寫成
-
-\begin{equation}
-F =
-\begin{cases}
-u = f(x, y) \\
-v = g(x, y)
-\end{cases}
-\end{equation}
-
-有些軟體提供quiver來繪製2D向量箭頭
-
-我們可以依據公式畫向量場 (Vector field)的圖形
-
-\begin{equation}
-F =
-\begin{cases}
-u = -y \\
-v = x
-\end{cases}
-\end{equation}
-
-\begin{tikzpicture}
-\begin{axis}[
-  xmin = -10, xmax = 10,
-  ymin = -10, ymax = 10,
-  zmin = 0, zmax = 1,
-  axis equal image,
-  view = {0}{90},
-  title = {Electromagnetic Field},
-  height=7cm,
-  xlabel = {$x$},
-  ylabel = {$y$},
-  colormap/viridis,
-  yticklabels={,,},
-  xticklabels={,,},
-  point meta
-]
-\addplot3[
-  point meta = {sqrt(x^2+y^2)},
-  quiver = {
-    u = {-y},
-    v = {x},
-    scale arrows=1
-  },
-  quiver/colored = {mapped color},
-  -stealth,
-  domain = -9:9,
-  domain y = -9:9,
-] {0};
-\end{axis}
-\end{tikzpicture}
-
-把箭頭長度縮短
-
-\begin{tikzpicture}
-\begin{axis}[
-  xmin = -10, xmax = 10,
-  ymin = -10, ymax = 10,
-  zmin = 0, zmax = 1,
-  axis equal image,
-  view = {0}{90},
-  title = {Electromagnetic Field},
-  height=7cm,
-  xlabel = {$x$},
-  ylabel = {$y$},
-  colormap/viridis,
-  yticklabels={,,},
-  xticklabels={,,},
-  point meta
-]
-\addplot3[
-  point meta = {sqrt(x^2+y^2)},
-  quiver = {
-    u = {-y},
-    v = {x},
-    scale arrows=0.2
-  },
-  quiver/colored = {mapped color},
-  -stealth,
-  domain = -9:9,
-  domain y = -9:9,
-] {0};
-\end{axis}
-\end{tikzpicture}
-
-或用固定的箭頭長度，則向量公式變為
-
-\begin{equation}
-F =
-\begin{cases}
-u = \frac{-y}{\hypot(x, y)} \\
-v = \frac{x}{\hypot(x, y)}
-\end{cases}
-\end{equation}
-
-其中 
-
-$$
-\hypot(x, y) = \sqrt{x ^ 2 + y ^ 2}
-$$
-
-\begin{tikzpicture}
-\begin{axis}[
-  xmin = -10, xmax = 10,
-  ymin = -10, ymax = 10,
-  zmin = 0, zmax = 1,
-  axis equal image,
-  view = {0}{90},
-  title = {Electromagnetic Field},
-  height=7cm,
-  xlabel = {$x$},
-  ylabel = {$y$},
-  colormap/viridis,
-  yticklabels={,,},
-  xticklabels={,,},
-  point meta
-]
-\addplot3[
-  point meta = {sqrt(x^2+y^2)},
-  quiver = {
-    u = {-y/sqrt(x^2+y^2)},
-    v = {x/sqrt(x^2+y^2)},
-    scale arrows = 0.2
-  },
-  quiver/colored = {mapped color},
-  -stealth,
-  domain = -9:9,
-  domain y = -9:9,
-] {0};
-\end{axis}
-\end{tikzpicture}
-
-或用一些繪圖工具的 stream plot功能
-
-![](vector.png){width=50%, height=50%}

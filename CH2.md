@@ -2,11 +2,11 @@
 
 ## 直流發電機之原理
 
-* 弗萊明右手定則 - 判斷感應電勢方向
+* 弗萊明右手定則(發電機定則) - 判斷感應電勢方向
 
-大拇指(必須先有): F(機械能、動能)
-食指(轉換媒介): B(磁能)
-中指(才能產生): I(電能)
+大拇指(必須先有) - 受力方向: F(機械能、動能)
+食指(轉換媒介) - 磁力線方向: B(磁能)
+中指(才能產生) - 感應電流方向: I(電能)
 
 * 法拉第實驗 - 放置繞有激磁繞組的磁極於左右兩側，將線圈放在中央(電樞)轉子上，當電樞轉動時，電樞上的導體會不斷的切割磁力線而感應電勢
 
@@ -84,17 +84,24 @@
     ylabel = {\(v(t)\)}]
 \addplot[color=red, dotted, domain=0:10, samples=100] {abs(sin(deg(x)))};
 \addplot[color=blue, dashed, domain=0:10, samples=100] {abs(sin(deg(x) - 120))};
-\addplot[color=blue, dashed, domain=0:10, samples=100] {abs(sin(deg(x) + 120))};
-\addplot[color=black, thick, domain=0:10, samples=100] {abs(sin(deg(x) + 120)) + abs(sin(deg(x))) + abs(sin(deg(x) - 120))};
+\addplot[color=green, dashed, domain=0:10, samples=100] {abs(sin(deg(x) + 120))};
+\addplot[color=black, thick, domain=0:10, samples=100] {
+abs(
+  sin(deg(x)) +
+  sin(deg(x) + 120) +
+  sin(deg(x) - 120)
+)};
 \end{axis}
 \end{tikzpicture}
 
+黑色為線電壓，紅、綠、藍為向電壓
+
 * 直流發電機的感應電勢
 
-而每一導體通過一個磁極所需要的時間($\triangle t$) 為
+而每一導體通過一個磁極所需要的時間($\Delta t$) 為
 
 \begin{equation}
-\triangle t = \frac{1}{n} \times \frac{1}{P} \times 60 = \frac{60}{nP}
+\Delta t = \frac{1}{n} \times \frac{1}{P} \times 60 = \frac{60}{nP}
 \end{equation}
 
 正負電刷間，每一路徑的串聯匝數(N)為
@@ -106,14 +113,14 @@ N = \frac{Z_T}{a} = \frac{Z}{2a}
 每一繞組經過一個磁極的磁通變化量為 
 
 \begin{equation}
-\triangle \phi = \phi - (- \phi) = 2 \phi
+\Delta \phi = \phi - (- \phi) = 2 \phi
 \end{equation}
 
-帶入法拉第電磁感應定律 $E = N \frac{\triangle \phi}{\triangle t}$
+帶入法拉第電磁感應定律 $E = N \frac{\Delta \phi}{\Delta t}$
 
-\begin{equation}
+\begin{equation} \label{e-motor}
 \begin{split}
-E &= N \frac{\triangle \phi}{\triangle t} \\
+E &= N \frac{\Delta \phi}{\Delta t} \\
   &= \frac{Z}{2a} \times \frac{2 \phi}{\frac{60}{nP}} \\
   &= \frac{PZ}{60a} \phi n
 \end{split}
@@ -126,13 +133,13 @@ $Z$: 電樞導體數
 $a$: 並聯電流路徑數
 $P$: 磁極數
 
-或者當 $P$、$Z$、$a$ 是固定值(如製造成品)，假設常數 $K_E = \frac{PZ}{60a}$，則可以寫為
+或者當 $P$、$Z$、$a$ 是固定值，假設常數 $K_E = \frac{PZ}{60a}$，則可以寫為
 
 \begin{equation}
 E = K_E \phi n
 \end{equation}
 
-得知當 $K_E$ 固定時，感應電勢和**磁通量**($\phi$) 和**轉速**(n)成正比
+得知當 $K_E$ 固定時，直流發電機感應電勢和**磁通量**($\phi$) 和**轉速**(n)成正比
 
 ### 直流機
   1. 採用矽鋼疊製而成(減少窩損失)
@@ -154,7 +161,7 @@ E = K_E \phi n
 ### 電刷
 
 種類           | 特性               | 接觸電阻   | 用途
-----           | ----               | ----       | ----
+-------        | -------            | -------    | -------
 炭質電刷       | 質密而堅硬         | 高         | 低速電機
 石磨質電刷     | 質軟而潤滑         | 低         | 高速電機
 電化石磨質電刷 | 炭精加熱，加壓而成 | 適中       | 一般DC G/M
@@ -351,13 +358,13 @@ F_D = F_A \times \frac{4 \theta_e}{360} = F_A \times \frac{2\theta_e}{180}
 
 #### 交磁動勢占總電樞磁動勢的
 
-根據 \eqref{eq-f-d}
+根據公式 \eqref{eq-f-d}
 
 \begin{equation}
 F_C = F_A \times \frac{180 - 2 \theta_e}{180}
 \end{equation}
 
-或用  \eqref{eq-f-a}
+或用公式  \eqref{eq-f-a}
 
 \begin{equation}
 \vec{F_C} = \vec{F_A} - \vec{F_D}
@@ -383,13 +390,13 @@ F_A &= NI \\
 \end{split}
 \end{equation}
 
-3. 根據\eqref{eq-e-m}得到電機角
+3. 根據公式 \eqref{eq-e-m} 得到電機角
 
 \begin{equation}
 \theta_e = \frac{P}{2} \times \theta_m = 40^\circ
 \end{equation}
 
-4. 用 \eqref{eq-f-d} 得到**總去磁安匝**
+4. 用公式 \eqref{eq-f-d} 得到**總去磁安匝**
 
 \begin{equation}
 \begin{split}
@@ -477,7 +484,9 @@ F_D &= F_A \times \frac{2\theta_e}{180} \\
         ;
 \end{tikzpicture}
 
-#### 他(外)激式
+依照 KVL 和 KCL 來分析
+
+### 他(外)激式
 
 \begin{circuitikz}
 \draw (0, 0)
@@ -509,7 +518,7 @@ F_D &= F_A \times \frac{2\theta_e}{180} \\
 \end{split}
 \end{equation}
 
-#### 分(並)激式
+### 分(並)激式
 
 \begin{circuitikz}
 \draw (2.5, 0)
@@ -539,7 +548,7 @@ I_L &= \frac{V_L}{R_L}
 \end{split}
 \end{equation}
 
-#### 串激式
+### 串激式
 
 \begin{circuitikz}
 \node[elmech] at (2.5, 1.5) (M) {G};
@@ -562,7 +571,7 @@ I_A &= I_F = I_L = \frac{V_L}{R_L}
 \end{split}
 \end{equation}
 
-#### 短並聯複激式
+### 短並聯複激式
 
 \begin{circuitikz}
 \node[elmech] at (2.5, 1.5) (M) {G};
@@ -594,7 +603,7 @@ I_A &= I_F + I_L  = I_F + I_S
 \end{split}
 \end{equation}
 
-#### 長並聯複激式
+### 長並聯複激式
 
 \begin{circuitikz}
 \node[elmech] at (1.2, 1.5) (M) {G};
@@ -627,7 +636,7 @@ I_A &= I_F + I_L  = I_F + I_S
 \end{split}
 \end{equation}
 
-### 直流發電機的特性曲線
+## 直流發電機的特性曲線
 
 曲線名稱           | x軸   | Y軸   | 固定條件(控制變數)      | 調整項目(自變數)
 ----               | ----  | ----  | ----                    | ----
@@ -752,17 +761,18 @@ I_A &= I_F + I_L  = I_F + I_S
 
 * 複激式發電機的用途:
 
-類型  | 用途
+類型        | 用途
 ---------   | ---------
-過複激式 | 礦坑或電車
-平復激式 | 一般直流電源或中小型直流激用激磁機
-欠複激式 | 
-差複激式 | 
+過複激式    | 礦坑或電車
+平復激式    | 一般直流電源或中小型直流激用激磁機
+欠複激式    | 
+差複激式    | 
 
 ### 電壓調整率
 
 \begin{equation}
-\mathcal {E} \% = VR \% = \frac{V_{FL} - V_{NL}}{V_FL} \times 100\%
+\label{eq-vr}
+\mathcal {E} \% = VR \% = \frac{V_{NL} - V_{FL}}{V_FL} \times 100\%
 \end{equation}
 
 * 電壓調整率為正: $V_{FL} > F_{NL}$ 如他激、分激，欠複激式、差複激式
@@ -863,7 +873,7 @@ P_E \propto B_{M}^2 f^2 G t^2
 
 \begin{equation*}
 P = I ^ 2 R
-\end{enuation*}
+\end{equation*}
 
 該繞組的銅損和流過該繞組的電流成平方正比，除了**分激、他激場繞組銅損**較不受影響外(視為固定值)，**電樞繞組銅損**和電樞電流成平方正比，其他皆視為和**負載電流成平方正比**。
 
@@ -882,9 +892,44 @@ P = I ^ 2 R
 \eta = \frac{\text{輸入功率}}{\text{輸出功率}} = \frac{P_o}{P_i} = \frac{P_o}{P_o + P_{loss}} \times 100 \%
 \end{equation}
 
+直流發電機的功率轉換
+
+\begin{equation}
+\begin{split}
+& \text{輸入機械功率} - (\text{無載旋轉損失} + \text{雜散負載損}) = \text{電磁功率} \\
+& P_M - (P_{NL} + P_{stray}) = P_m = E_A I_A
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\text{電磁功率} - (\text{電樞銅損} + \text{電刷接觸損}) = \text{電樞端電功率}
+P_m - (P_{RA} + P_B) = P_A = V_A I_A
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\text{電樞端電功率} - (\text{串激場磁通損失} + \text{分激場磁通損失}) = \text{輸出電功率}
+P_A - (P_{RS} + P_{RF}) = P_o = E_A I_L
+\end{split}
+\end{equation}
+
 全日效率
 
 \begin{equation}
 \text{全日效率} = \frac{\text{全日輸出總能量}}{\text{全日輸入總能量} + \text{全日固定損失} + \text{全日變動損失}} \times 100 \%
 \end{equation}
+
+電機絕緣等級(class of insulation) [Insulation system](https://www.wikiwand.com/en/Insulation_system)
+
+絕緣等級     | 容許最高溫度 | 構成絕緣的材料
+------       | ------       | ------
+Y            | 90           | 由棉紗、絲、紙等構成，未滲透絕緣漆(Varnish)或未浸入油中。
+A            | 105          | 由棉紗、絲、紙等構成，滲透透明漆或浸入油中。
+E            | 120          | 
+B            | 130          | 例如雲母、石棉、玻璃纖維等材料，藉適當的黏合劑所構成的絕緣。
+F            | 150          | 例如雲母、石棉、玻璃纖維等材料，藉矽化烴樹脂(Silicon alkyd resin)等之黏合劑所構成。
+H            | 180          | 例如雲母、石棉、玻璃纖維等材料，，藉矽樹脂(Silicon resin)或具有同特性之黏合劑所構成之絕緣。此外，將膠狀及固體狀矽樹脂或具有同等特性之材料單獨使用者亦包括在內。
+C            | 180以上      | 例如單獨使用生雲母、石綿或瓷等，或藉黏合劑所構成。
 
