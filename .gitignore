@@ -1,0 +1,9 @@
+*.pdf
+*.dpth
+*.log
+*.aux
+*.md5
+*.auxlock
+*.toc
+*.sublime-project
+*.sublime-workspace
