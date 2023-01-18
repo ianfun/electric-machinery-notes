@@ -1,4 +1,4 @@
-## 附錄: 場線的圖形
+# 附錄: 場線的圖形
 
 場線(field line)可以用來展示電場和磁場，可以用數學的散度
 (Divergence)或curl來繪製向量圖
@@ -220,3 +220,6 @@ $$
 或用一些繪圖工具的 stream plot功能
 
 ![](vector.png){width=50%, height=50%}
+
+
+\copyright 2023 林亦恩

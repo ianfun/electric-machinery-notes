@@ -245,7 +245,7 @@ E = K_E \phi n
 
 末端架(End bracket)又稱端蓋，用以放置軸承，支撐整個電樞轉子的圓形盤狀物。![](end_bracket.jpg){width=20%, height=20%}
 
-### 電樞反應
+## 直流電激的電樞反應
 
 當發電機接上電負載後，會有電樞電流產生，負載愈大時電樞電流會更著愈大。當電樞電流流過電樞導體時產生電樞磁場(電生磁)，此磁場會干擾主磁極的磁場造成，造成主磁極磁場發生偏移、大小發生變化的現象，這些現象通稱為電樞反應(Armature reaction)。
 
@@ -270,13 +270,13 @@ $F_A$: 電樞磁動勢
 紅色虛線: 新的磁中性面
 y軸: 機械中性面(刷軸)
 
-#### 電樞反應的引響
+### 電樞反應的引響
 
 1. 總磁通減少
 2. 磁中性面偏移
 3. 換向困難
 
-### 電樞磁動勢(電樞總安匝)
+## 電樞磁動勢、去磁和交磁動勢
 
 電樞磁動勢/電樞總安匝($\vec{F_A}$) 由去磁磁動勢/去磁安匝($\vec{F_D}$)(De-magnetizing)及交磁磁動勢/交磁安匝(Cross-magnetizing)($\vec{F_C}$)相加而成
 
@@ -295,7 +295,7 @@ y軸: 機械中性面(刷軸)
 \vec{F_C} = \vec{F_A} - \vec{F_D}
 \end{equation}
 
-#### 去磁磁動勢 $\vec{F_D}$
+### 去磁磁動勢 $\vec{F_D}$
 
 每極產生去磁的電樞匝數
 
@@ -323,7 +323,7 @@ F_D = F_{D/P} \times P
 
 加上方向後變成向量 $\vec{F_D}$
 
-#### 交磁磁動勢 $\vec{F_C}$
+### 交磁磁動勢 $\vec{F_C}$
 
 產生交磁磁動勢的是位於磁極極掌下之電樞導體，其範圍為左右對稱約 $2 \beta$ 的區域，則每極有 $\beta$ 機械角度的電樞導體產生交磁磁動勢
 
@@ -349,14 +349,14 @@ F_{C/P} = N_{C/P} \times I = \frac{\beta Z}{720} \times \frac{I_A}{a}
 F_C = P \times F_{C/P}
 \end{equation}
 
-#### 去磁動勢占總電樞磁動勢的
+### 去磁動勢占總電樞磁動勢的
 
 \begin{equation}
 \label{eq-f-d}
 F_D = F_A \times \frac{4 \theta_e}{360} = F_A \times \frac{2\theta_e}{180}
 \end{equation}
 
-#### 交磁動勢占總電樞磁動勢的
+### 交磁動勢占總電樞磁動勢的
 
 根據公式 \eqref{eq-f-d}
 
@@ -370,7 +370,7 @@ F_C = F_A \times \frac{180 - 2 \theta_e}{180}
 \vec{F_C} = \vec{F_A} - \vec{F_D}
 \end{equation}
 
-#### 範例: 台電-電工機械- 108 年試題
+### 範例: 台電-電工機械- 108 年試題
 
 > 某**4極**直流發電機，電樞總導體數為144根，繞線方式採**單分疊繞**，其電樞電流為120A，其電刷前移20度電機角，則此發電機之**總去磁安匝**為多少?
 
@@ -420,7 +420,7 @@ F_D &= F_A \times \frac{2\theta_e}{180} \\
   與電樞繞組串聯，發電機用 **NnSS** 的順序，電動機為 **NnSs**。
   可改善電樞反應和改善換向
 
-### 換向曲線
+## 換向曲線
 
 \begin{tikzpicture}
 \begin{axis}[domain=-5:5,samples=100,yticklabels=\empty, xticklabels=\empty]
@@ -444,7 +444,7 @@ F_D &= F_A \times \frac{2\theta_e}{180} \\
 3. 欠速換向: 後刷邊產生大火花
 4. 過速換向: 前刷邊大火花
 
-### 改善換向作用
+## 改善換向作用
 
 1. 裝設補償繞組
 2. 裝置中間極(換向磁極)
@@ -452,7 +452,7 @@ F_D &= F_A \times \frac{2\theta_e}{180} \\
 3. 提高電刷的接觸電阻
 4. 移動電刷法(較困難)
 
-### 直流發電機的等效電路
+## 直流發電機的等效電路
 
 \begin{tikzpicture}
 [
@@ -668,6 +668,59 @@ I_A &= I_F + I_L  = I_F + I_S
 
 ### 分(並)機式發電機的特性曲線
 
+* 電壓建立過程
+
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0:100,
+    axis lines = left,
+    xlabel = {激磁電流$I_F$},
+    ylabel = {感應電勢$E$},
+    xticklabels={$I_1$, $I_2$, $I_3$, $I_4$, $I_5$, $I_6$, $I_7$, $I_8$, $I_9$}, 
+    xtick={0, 5, 10, 15, 27, 45, 60, 70, 79, 84, 89},
+    yticklabels={$E_1$, $E_2$, $E_3$, $E_4$, $E_5$, $E_6$, $E_7$, $E_8$, $E_9$},
+    ytick={0, 5, 10, 15, 27, 45, 60, 70, 79, 84, 89},
+    width=13cm,
+    height=10cm
+]
+\addplot[color=green] {0.5*x};
+\addlegendentry{$R_{F1}$ (大)}
+\addplot[color=yellow] {0.7*x};
+\addlegendentry{$R_{F2}$ (中)}
+\addplot[color=blue] {0.9*x};
+\addlegendentry{$R_{F3}$ (小)}
+\addplot[color=red, thick] {0.7*x+sin(deg(x/60))*20 - (x/17)^2};
+\addlegendentry{無載飽和曲線}
+\end{axis}
+\node[draw, rounded corners=10pt, align=center] at (9, 2)
+{
+  電壓建立的順序: \\
+  $ E_1 \rightarrow E_1 \rightarrow I_1 \rightarrow E_2 \rightarrow I_2 \rightarrow E_3 \rightarrow I_3 $ \\ 
+  $ \rightarrow E_4 \rightarrow I_4 \rightarrow E_5 \rightarrow I_5 \rightarrow E_6 \rightarrow I_6 $ \\ $  \rightarrow E_7 \rightarrow I_7 \rightarrow E_8
+    \rightarrow I_8 \rightarrow E_9 \rightarrow I_9$
+};
+\end{tikzpicture}
+
+* 發電機電壓建立過程:
+  1. 發電機靜止時，無感應電勢
+  2. 以原動機驅動，使發電機旋轉，並維持而定轉速n
+  3. 電樞導體切割剩磁磁通 $\phi_R$，產生小小感應電勢 $E = E_1 = K \phi_R n$
+  4. 更具圖中場電阻線 $R_{F2}$ ， $E_1$ 產生對應的場電流， $I_F = I_1$
+  5. $I_1$ 流過磁場繞組，產生磁通 $\phi_1$，此 $\phi_1$ 和 $\phi_R$ 方向相同，$E = E_2 = K(\phi_R + \phi_2)$ ，總體 $\phi$ 上升，感應電勢更著上升
+  6. 此一 $E2$，使機磁電流上升，$I_F = I_2$
+  7. 重複步驟 5、6，更高的 $I_F$ 產生更高的 E，由 $E_3 \rightarrow I_3 \rightarrow E_4 \cdots \rightarrow I_9 \rightarrow E_9$
+  8. 直到磁化曲線和場電組線之交叉點Q時，由於磁通飽和效應，磁通不再增加，感應電勢不再增加，$E = E_9$，而趨於穩定
+
+有兩個因素會引響感應電勢高低
+
+1. 電樞轉速: $E = K \phi n$，感應電勢和轉速成正比
+2. 磁場電阻: $R_F$ 愈小，$I_F$ 愈大，產生磁通 $\phi$ 愈多，感應電勢$E$愈高，感應電勢與 $R_F$ 成反比。
+
+當轉速愈低或磁場電阻愈大，將使感應電勢降低，當達到某個點時，將使電樞無法感應電勢，有兩個名詞來描述電阻和轉速臨界值。
+
+* 臨界場電阻(Critical field resistance): 固定轉速下，能使電動機感應電勢的最大磁場電阻
+* 臨界轉速(Critical speed): 固定場電阻下，能使電動機感應電勢的最低轉速
+
 * 外部特性曲線: 
 
 - 負載電流 $I_L$ 有先升後降的特性: 當負載持續增加時，負載電阻 $R_L$ 下降、負載電流 $I_L$ 上升、與之並聯的 $I_F$ 因於下降($I_A = I_F + I_L$)、所產升磁通減少、感應電勢 $E$ 下降，連鎖反應的結果是出現**崩潰點**(Break-down point)，造成 $V_L$ 急劇下降為零，同時 $I_L$ 因而下降。
@@ -768,7 +821,7 @@ I_A &= I_F + I_L  = I_F + I_S
 欠複激式    | 
 差複激式    | 
 
-### 電壓調整率
+## 電壓調整率
 
 \begin{equation}
 \label{eq-vr}
@@ -779,7 +832,7 @@ I_A &= I_F + I_L  = I_F + I_S
 * 電壓調整率為負: 如平複激式
 * 電壓調整率為零: $V_{FL} < V_{NL}$ 如串複激式、過複激式
 
-### 直流發電機的並聯運用
+## 直流發電機的並聯運用
 
 優點:
 
@@ -800,7 +853,7 @@ I_A &= I_F + I_L  = I_F + I_S
 V_L = V_1 = V_2
 \end{equation}
 
-### 直流電機(發電機、電動機的耗損)及效率
+## 直流電機(發電機、電動機的耗損)及效率
 
 \begin{tikzpicture}[scale=0.8]
 \tikzset{edge from parent/.style=
@@ -836,7 +889,7 @@ edge from parent path={(\tikzparentnode.south)
 
 \end{tikzpicture}
 
-#### 機械損失
+### 機械損失
 
 有軸承摩擦損、電刷摩擦損、風阻損等，可由實驗得之。
 
@@ -867,7 +920,7 @@ P_E \propto B_{M}^2 f^2 G t^2
 * 磁滯損和頻率成正比，渦流損頻率平方成正比
 * 頻率是指電樞電流的交流頻率，和轉速成正比
 
-#### 銅損
+### 銅損
 
 根據
 
@@ -877,22 +930,42 @@ P = I ^ 2 R
 
 該繞組的銅損和流過該繞組的電流成平方正比，除了**分激、他激場繞組銅損**較不受影響外(視為固定值)，**電樞繞組銅損**和電樞電流成平方正比，其他皆視為和**負載電流成平方正比**。
 
-#### 雜散負載損
+### 雜散負載損
 
 由負載電流引起，無法分別或計算其值，一般而言，雜散負載損以滿載輸出的 $1 \%$ 計算
 
 * 固定損: 鐵損、機械損、分激場繞組銅損、他激場繞組銅損
 * 變動損: 旋轉損、其他銅損
 
-#### 直流發電機的功率計算
+## 直流發電機的效率
 
 定義效率(Efficiency)為
 
 \begin{equation}
-\eta = \frac{\text{輸入功率}}{\text{輸出功率}} = \frac{P_o}{P_i} = \frac{P_o}{P_o + P_{loss}} \times 100 \%
+\text{效率} \eta = \frac{\text{輸入功率}}{\text{輸出功率}} = \frac{P_o}{P_i} = \frac{P_o}{P_o + P_{loss}} \times 100 \%
 \end{equation}
 
-直流發電機的功率轉換
+在直流發電機、電動機或變壓器裡也可以寫成
+
+\begin{equation} \begin{split}
+\text{效率} \eta &= \frac{\text{輸出功率}}{\text{輸入功率}} \times 100 \% \\
+                 &=\frac{V_2 I_2 \cos \theta_2}{V_2 I_2 + P_I + P_C} (\text{變壓器}) \times 100 \%
+\end{split} \end{equation}
+
+## 直流發電機的功率轉換
+
+\begin{tikzpicture}[every text node part/.style={align=center}]
+\foreach \i / \c in {4/green!20, 3/cyan!20, 2/gray!20, 1/magenta!20} {
+  \draw[fill=\c] (0, 0) arc (0:360:\i);
+}
+\node[] at (-1, 0) {輸出功率 \\ $P_o = V_L I_L$ };
+\node[] at (-3, 0) {電樞端功率 \\ $P_A = V_A I_A$};
+\node[] at (-5, 0) {電磁功率  \\ $P_m = E_A I_A$ };
+\node[] at (-7, 0) {原電動機 \\ 輸入電功率  \\ $P_M = P_I = \omega T$};
+\draw [-stealth] (-1, -1) -- ++(2, -2) node[below] {分激場銅損  $P_{RF} = I_F^2 R_F$ + \\ 串激場銅損 $P_{RS} = I_S^2 R_S$ };
+\draw [-stealth] (-2, 2) -- ++(1, 1) node[right] {電刷接觸損失 $P_B = V_B I_A$ + \\  電樞銅損 $P_{RA} = I_A^2R_A$};
+\draw [-stealth] (-6, 0) -- ++(-1, -4) node[below] {無載旋轉損失 $P_{NL}$  + 雜散負載損失 $P_{stray}$};
+\end{tikzpicture}
 
 \begin{equation}
 \begin{split}
@@ -924,12 +997,12 @@ P_A - (P_{RS} + P_{RF}) = P_o = E_A I_L
 電機絕緣等級(class of insulation) [Insulation system](https://www.wikiwand.com/en/Insulation_system)
 
 絕緣等級     | 容許最高溫度 | 構成絕緣的材料
-------       | ------       | ------
-Y            | 90           | 由棉紗、絲、紙等構成，未滲透絕緣漆(Varnish)或未浸入油中。
-A            | 105          | 由棉紗、絲、紙等構成，滲透透明漆或浸入油中。
-E            | 120          | 
+--------     | --------     | --------
+Y            | 90           | 棉紗、絲、紙等構成,但未浸過清漆(凡立水varnish)類,或未浸於絕緣油中。或未浸入油中。
+A            | 105          | 棉紗、絲、紙等構成,並經滲透清漆類,或浸於絕緣油中。
+E            | 120          | 係能充分耐受容許最高溫度 $120^\circ$ 的材料所構成的絕緣,如 mylar。
 B            | 130          | 例如雲母、石棉、玻璃纖維等材料，藉適當的黏合劑所構成的絕緣。
-F            | 150          | 例如雲母、石棉、玻璃纖維等材料，藉矽化烴樹脂(Silicon alkyd resin)等之黏合劑所構成。
-H            | 180          | 例如雲母、石棉、玻璃纖維等材料，，藉矽樹脂(Silicon resin)或具有同特性之黏合劑所構成之絕緣。此外，將膠狀及固體狀矽樹脂或具有同等特性之材料單獨使用者亦包括在內。
-C            | 180以上      | 例如單獨使用生雲母、石綿或瓷等，或藉黏合劑所構成。
+F            | 155          | 例如雲母、石棉、玻璃纖維等材,藉矽化烴樹脂(silicon alkyd resin) 等黏合劑所構成的絕緣。
+H            | 180          | 例如雲母、石棉、玻璃纖維等材料藉矽樹脂(silicon resin)或具有同等特 性之黏合劑才以構成的材料,此外將膠狀及固態狀矽樹脂或具有同等特性的材料單獨使用者亦包括在內。
+C            | 180以上      | 將生雲母、石棉、瓷等單獨使用而構成者,或藉黏合劑才以構成者。
 

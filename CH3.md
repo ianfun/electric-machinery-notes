@@ -57,11 +57,83 @@ E_B = \frac{PZ}{60a} \phi n
 
 或用常數 $K_E$ 代表 $\frac{PZ}{60a}$
 
-\begin{equation}
+\begin{equation} \label{eq-dc-motor-k}
 E_B = K_E \phi n
 \end{equation}
 
 得知當 $K_E$ 固定時，直流電動機反電勢和**磁通量**($\phi$) 和**轉速**(n)成正比
+
+\begin{tikzpicture}
+\draw[fill=yellow!50] (0, 0) circle (3cm);
+\foreach \i in {-90, -82, ..., 82} {
+  \draw[fill=cyan!50](canvas polar cs:radius=3.18cm, angle=\i) node[] {\rotatebox{\i}{$\bigotimes$}};
+}
+\foreach \i in {90, 98, ..., 262} {
+  \draw[fill=cyan!50](canvas polar cs:radius=3.18cm, angle=\i) node[] {\rotatebox{\i}{$\bigodot$}};
+}
+\foreach \i in {-90, -82, ..., 82} {
+  \draw[fill=cyan!50](canvas polar cs:radius=2.9cm, angle=\i) node[] {$\bullet$};
+}
+\foreach \i in {90, 98, ..., 262} {
+  \draw[fill=cyan!50](canvas polar cs:radius=2.9cm, angle=\i) node[] {\rotatebox{\i}{+}};
+}
+\draw[name path = A, thick] (-4, -2) --++(-1, 0) -- ++(0, 4) -- ++(1, 0);
+\draw[rounded corners=20pt, name path = B, thick] (-4, -2) -- ++(1.2, -1) -- ++(-1, 3) -- ++(1, 3) -- ++(-1.2, -1);
+\tikzfillbetween[of=A and B] {pink}
+\node[] at (-4.5, 0) {\large S};
+
+
+\draw[name path = C, thick] (4, -2) --++(1, 0) -- ++(0, 4) -- ++(-1, 0);
+\draw[rounded corners=20pt, name path = D, thick] (4, -2) -- ++(-1.2, -1) -- ++(1, 3) -- ++(-1, 3) -- ++(1.2, -1);
+\tikzfillbetween[of=C and D] {blue!50}
+\node[] at (4.5, 0) {\large N};
+\draw[-stealth] (-1.5, -1.4) arc (220:300:2) node[above] {轉向};
+\draw [-stealth] (2cm, 2.1cm) -- ++(0, -1cm) node[left] {反電勢方向};
+\draw [stealth-] (2.4cm, 2.4cm) -- ++(0.5cm, 1cm) node[right] {外加電流方向};
+\draw[fill=black, thick] (-0.2cm, 3.4cm) rectangle ++(0.4cm, 0.4cm) node[red, right] {+};
+\draw[fill=black, thick] (-0.2cm, -3.4cm) rectangle ++(0.4cm, -0.4cm) node[right] {$-$};
+\draw[thick] (0, 3.8cm) -- ++(0, 0.5cm) -- ++(1cm, 0);
+\draw[thick] (0, -3.8cm) -- ++(0, -0.5cm) -- ++(1cm, 0);
+\end{tikzpicture}
+
+如圖，當以知電流方向 $\bigotimes$ 、 $\bigodot$ 和磁場方向($N \rightarrow S$)，根據弗萊明左手定則得知轉向為逆時針，並根據弗萊明右手定則得知反電勢方向，如圖中的 + 及 $bullet$。
+
+直流電動機的電樞繞組可視為一電樞電組 $R_A$ 及一反電勢 $E_B$ 串聯而成，外接於直流電壓 $V_L$，先有外加電壓 $V_L$，旋轉後才會產生反電勢。
+
+\begin{circuitikz}[american]
+\node[elmech] at (3, 1) (M) {M};
+\node[] at (2.4, 0.7) {$I_A R_A$};
+
+\draw (0, 2)
+  to [battery=$V_L$] (0, 0);
+\draw (0, 2)
+  to [short, i=$I_A$] ++(3, 0)
+  to [short](M.north);
+\draw (M.south)
+  to [short] (3, 0)
+  to [short] (0, 0);
+\end{circuitikz}
+
+可以寫成
+
+\begin{equation}
+\label{motor-vl-ia}
+\text{電樞電流} I_A = \frac{V_L - E_B}{R_A}
+\end{equation}
+
+或
+
+\begin{equation} \label{motor-vl-ia-r}
+E_B = V_L - I_A R_A
+\end{equation}
+
+根據 \eqref{eq-dc-motor-k} 和 \eqref{motor-vl-ia-r}
+
+\begin{equation}
+n = \frac{E_B}{K_E \phi} = \frac{V_L - I_A R_A}{K_E \phi}
+\end{equation}
+
+可知當反電勢 $E_B$ 或端電壓 $V_L$ 愈大，轉速愈快；磁通愈多，轉速愈慢
 
 ## 轉速和角速度
 
@@ -300,14 +372,14 @@ T \approx 0.974 \times \frac{P_M(\text{瓦特})}{n(\text{rpm})} = 974 \times \fr
 \end{split}
 \end{equation}
 
-### 直流電動機的特性曲線
+## 直流電動機的特性曲線
 
 曲線名稱 | 固定條件(控制變數) | 調整項目(自變數)
 ------   | ------             | ------
 轉速特性 | $V_L$ 、 $I_F$      | 負載大小
 轉矩特性 | $V_L$ 、 $I_F$      | 負載大小
 
-#### 他(外)機式
+### 他(外)機式
 
 #### 轉速特性
 
@@ -456,11 +528,65 @@ T = K_T \phi I_A
 \end{scope}
 \end{tikzpicture}
 
+## 直流電動機的啟動
+
+一般電動機在啟動瞬間，轉速$n=0$，故反電勢 $E_B = K_E \phi n = 0$ ，則啟動時的電樞電流為
+
+\begin{equation}
+\text{啟動時的電樞電流} I_{AS} = \frac{V_L - E_B}{R_A} = \frac{V_L}{R_A} (\text{A, 安培})
+\end{equation}
+
+由於電樞電阻 $R_A$ 很小，因此啟動電流可能高達額定電流的數十倍，造成電樞入組燒毀，因此中大型電動機在啟動時，會在電樞繞組上串聯一電阻器，以降低電樞啟動時的電流，此電阻器稱為啟動電阻器 $R_X$
+
+由於加裝電阻器會使運轉時的電樞電流下降，電磁轉矩 $T = K \phi I_A$ 也跟著降低，所以中大型電動機在啟動後會逐漸降低啟動電阻值，直到完全移除。
+
+啟動電阻示意圖
+
+\begin{tikzpicture}
+\draw (-0.3, 0)
+  to [short] ++(0, 1);
+\node[cute spdt down arrow] at (0, 1){};
+\draw (1, 1)
+  to [R=$R_X$] ++(0, 1.5)
+  to [short] ++(1, 0)
+  to node[elmech]{M} ++(0, -2.5)
+  to [battery, v=$V_L$] (-0.3, 0);
+\draw (1, 1.1)
+  to [short, -o] ++(-0.7, -0.5);
+\draw (1, 1.42)
+  to [short, -o] ++(-0.7, 0);
+\draw (1, 2.3)
+  to [short, -o] ++(-0.7, -0.2);
+\end{tikzpicture}
+
+當開始啟動時，啟動電阻 $R_X$ 最大，隨著轉速上升，開關逐漸往上移，啟動電阻值逐漸減少，當完成啟動後，開關移至最上方，完全移除啟動繞阻。
+
 ## 直流電動機的轉速控制
 
 1. 磁場控速法
   1. 分激式
     在分激場電路串聯一可變電阻器 $R_X$，$R_X$**愈大**，場電流 $I_F$ 愈小，磁通 $\phi$ 愈小，**轉速愈快**。
+    \begin{tikzpicture}
+    \draw (1, 4)
+      to [short, *-, i<=$I_L$] ++(-2.3, 0)
+      to [battery, v=$V_L$] ++(0, -4)
+      to [short, -*](-0.3, 0);
+    \draw (-0.3, 0)
+      to [short] ++(0, 1);
+    \node[cute spdt down arrow] at (0, 1){};
+    \draw (1, 1)
+      to [R=$R_X$] ++(0, 1.5)
+      to [L=$R_F$, cute, i<=$I_F$] ++(0, 1.5)
+      to [short] ++(1, 0)
+      to node[elmech]{M} ++(0, -4)
+      to [short, i=$I_A$] (-0.3, 0);
+    \draw (1, 1.1)
+      to [short, -o] ++(-0.7, -0.5);
+    \draw (1, 1.42)
+      to [short, -o] ++(-0.7, 0);
+    \draw (1, 2.3)
+      to [short, -o] ++(-0.7, -0.2);
+    \end{tikzpicture}
   2. 串激式
     在分激場電路並聯一可變電阻器 $R_X$，$R_X$**愈小**，變阻器分流 $I_X$ 愈大，場電流 $I_F$ 愈小，磁通 $\phi$ 愈小，**轉速愈快**。
   * 簡單有效的控速法
@@ -478,7 +604,7 @@ T = K_T \phi I_A
   * 因端電壓 $V_L$ 改變，繞阻磁通也會改變，容易造成轉速不穩定，故自激式電動機不適用，只適用於外激式電動機。
   * 因是外激式，$V_L = V_A$，轉速和 $V_L$ 成正比。
 
-### 直流電動機的轉向控制
+## 直流電動機的轉向控制
 
 只要調換磁場極性或電樞電流方向，就可以使電動機反轉(相對於原本轉向)；但是如果兩個同時改變，則轉向將維持不變。
 
@@ -486,7 +612,7 @@ T = K_T \phi I_A
 * 在複激式電動機，為了方便接線，通常以改變電樞電流為宜。
 * 可以使用兩極雙頭的切換開關，或用電磁開關電路也可以。
 
-### 直流電動機的制動控制
+## 直流電動機的制動控制
 
 在切離電源後，能克服轉動慣性而立即停止轉動的裝置，稱為制動(Brake)。
 
@@ -498,7 +624,7 @@ T = K_T \phi I_A
   2. 逆轉制動(Reverse braking): 斷電的瞬間，將電樞電流反接，使電動機產生反向轉矩，達到制動效果。
   3. 再生制動(Regenerative brake): 又稱回饋制動或回生制動，將電動機當成發電機運轉，將位能、動能等轉成電能，產生反轉轉矩，是能量回收(Energy recovery)的一總。被廣泛應用於純電動車、混合動力汽車、鐵路機車車輛上。
 
-### 直流電動機的損耗
+## 直流電動機的損耗
 
 與直流發電機相同
 
@@ -506,7 +632,20 @@ T = K_T \phi I_A
 \eta = \frac{\text{輸入功率}}{\text{輸出功率}} = \frac{P_o}{P_i} = \frac{P_o}{P_o + P_{loss}} \times 100 \%
 \end{equation}
 
-### 直流發電機的功率轉換
+## 直流發電機的功率轉換
+
+\begin{tikzpicture}[every text node part/.style={align=center}]
+\foreach \i / \c in {4/green!20, 3/cyan!20, 2/gray!20, 1/magenta!20} {
+  \draw[fill=\c] (0, 0) arc (0:360:\i);
+}
+\node[] at (-1, 0) {輸出軸功率 \\ $P_o = \omega T_o$ };
+\node[] at (-3, 0) {電磁功率 \\ $P_M = E_B I_A$};
+\node[] at (-5, 0) {電樞端功率  \\ $P_A = V_A I_A$ };
+\node[] at (-7, 0) {電源輸入 \\ 電功率  \\ $P_I = V_L I_L$};
+\draw [-stealth] (-1, -1) -- ++(2, -2) node[below] {無載旋轉損失 $P_{NL}$  + 雜散負載損失 $P_{stray}$};
+\draw [-stealth] (-2, 2) -- ++(1, 1) node[right] {電刷接觸損失 $P_B = V_B I_A$ + \\  電樞銅損 $P_{RA} = I_A^2R_A$};
+\draw [-stealth] (-6, 0) -- ++(-1, -4) node[below] {分激場銅損  $P_{RF} = I_F^2 R_F$ + \\ 串激場銅損 $P_{RS} = I_S^2 R_S$ };
+\end{tikzpicture}
 
 \begin{equation}
 \begin{split}

@@ -264,7 +264,7 @@ Z_B &= \frac{V_B}{I_B} = \frac{{V_B}^2}{I_B}
 
 當遇到不同基準容量 $S_B$ 和基準電壓 $V_B$ 時，標么值也必須加以轉換
 
-\begin{equation}
+\begin{equation} \label{eq-pu-old-new}
 \begin{split}
 Z_{PU(new)} &= Z_{PU(old)} \times (\frac{V_{B(old)}}{V_{B(new)}})^2 \times \frac{S_{B(new)}}{S_{B(old)}} \\
 I_{PU(new)} &= I_{PU(old)} \times \frac{I_{B(old)}}{I_{B(new)}}
@@ -640,6 +640,15 @@ N_1 V_2 = {N_1}' {V_2}'
 
 ## 變壓器的三相連接
 
+\begin{circuitikz}
+\draw (0, 0) to[ooosource, prim=wye, sec=zig, tert=delta, o-o] (0, 2);
+\draw (1, 0) to[oosourcetrans, prim=zig, sec=delta, o-o] (1, 2);
+\draw (2, 0) to[ooosource, prim=zig, sec=wye, tert=delta, o-o] (2, 2);
+\draw (3, 0) to[oosourcetrans, prim=delta, sec=wye, o-o] (3, 2);
+\draw (4, 0) to[ooosource, prim=delta, sec=delta, tert=delta, o-o] (4, 2);
+\draw (5, 0) to[oosourcetrans, prim=zig, sec=wye, o-o] (5, 2);
+\end{circuitikz}
+
 在電力系統中，從發電、輸電到配電一般都採三相交流，在升降電壓時，有兩種變壓器接法:
 
 * 一具三相變壓器連接
@@ -936,7 +945,64 @@ Y型和 $\Delta$ 型連接的特點
   to [short, o-] ++(-1, 0);
 \draw[] (11, 4.5) node[right] {W}
   to [short, o-] ++(-3, 0);
+\end{circuitikz}
 
+接線圖
+
+\begin{circuitikz}
+\ctikzset{resistors/scale=0.7}
+\node [transformer core, cute] at (0, 0) (X) {X};
+\node [transformer core, cute] at (0, 3) (Y) {Y};
+\node [transformer core, cute] at (0, 6) (Z) {Z};
+
+\draw (X.A1)
+  to [short] (Y.A2);
+\draw (Y.A1)
+  to [short] (Z.A2);
+\draw (Z.A1) 
+  to [short] (-1.55, 7.05)
+  to [short, *-] ++(0, -8.1)
+  to [short](X.A2);
+
+\draw (X.B1)
+  to [short] (Y.B2);
+\draw (Y.B1)
+  to [short] (Z.B2);
+\draw (Z.B1) 
+  to [short] (1.55, 7.05)
+  to [short, *-] ++(0, -8.1)
+  to [short](X.B2);
+
+\draw (X.A1)
+  to [short, i=$I_R$, *-o] ++(-1.5, 0) node[left] {R};
+\draw (Y.A1)
+  to [short, i=$I_S$, *-o] ++(-1.5, 0) node[left] {S};
+\draw (Z.A1)
+  to [short, i=$I_T$, -o] ++(-1.5, 0) node[left] {T};
+\draw (X.B1)
+  to [short, i=$I_U$, *-o] ++(1.5, 0) node[right] {U};
+\draw (Y.B1)
+  to [short, i=$I_V$, *-o] ++(1.5, 0) node[right] {V};
+\draw (Z.B1)
+  to [short, i=$I_W$, -o] ++(1.5, 0) node[right] {W};
+\node[below, red] at (Z.A1) (ZA1) {$+$};
+\node[below, red] at (Y.A1) (YA1) {$+$};
+\node[below, red] at (X.A1) (ZA1) {$+$};
+\node[below, red] at (Z.B1) (ZB1) {$+$};
+\node[below, red] at (Y.B1) (YB1) {$+$};
+\node[below, red] at (X.B1) (XB1) {$+$};
+\node[above] at (Z.A2) (ZA2) {$-$};
+\node[above] at (Y.A2) (YA2) {$-$};
+\node[above] at (X.A2) (XA2) {$-$};
+\node[above] at (Z.B2) (ZB2) {$-$};
+\node[above] at (Y.B2) (YB2) {$-$};
+\node[above] at (X.B2) (XB2) {$-$};
+\draw[->, red] (-1, 6.5) -- ++(0, -1) node[left] {$I_Z$};
+\draw[->, red] (-1, 3.5) -- ++(0, -1) node[left] {$I_Y$};
+\draw[->, red] (-1, 0.5) -- ++(0, -1) node[left] {$I_X$};
+\draw[->, red] (1, 5.5) -- ++(0, 1) node[left] {$I_Z$};
+\draw[->, red] (1, 2.5) -- ++(0, 1) node[left] {$I_Y$};
+\draw[->, red] (1, -0.5) -- ++(0, 1) node[left] {$I_X$};
 \end{circuitikz}
 
 ### Y - Y 連接
@@ -971,6 +1037,69 @@ Y型和 $\Delta$ 型連接的特點
   to [short, -o] ++(3, 0) node[right] {W};
 \end{circuitikz}
 
+接線圖
+
+\begin{circuitikz}
+\ctikzset{resistors/scale=0.7}
+\node [transformer core, cute] at (0, 0) (X) {X};
+\node [transformer core, cute] at (0, 3) (Y) {Y};
+\node [transformer core, cute] at (0, 6) (Z) {Z};
+
+\draw (X.A2)
+  to [short] ++(-0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Y.A2);
+\draw (Y.A2)
+  to [short, -*] ++(-0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Z.A2);
+\draw (Z.A2)
+  to [short, -*] ++(-0.5, 0)
+  to [short, -o] ++(0, 0.7) node[above] {N};
+\draw (X.A1)
+  to [short, -o, i=$I_R$] ++(-1.5, 0) node[left] {R};
+\draw (Y.A1)
+  to [short, -o, i=$I_S$] ++(-1.5, 0) node[left] {S};
+\draw (Z.A1)
+  to [short, -o, i=$I_T$] ++(-1.5, 0) node[left] {T};
+\draw (X.B1)
+  to [short, -o, i=$I_U$] ++(1.5, 0) node[right] {U};
+\draw (Y.B1)
+  to [short, -o, i=$I_V$] ++(1.5, 0) node[right] {V};
+\draw (Z.B1)
+  to [short, -o, i=$I_W$] ++(1.5, 0) node[right] {W};
+\draw (X.B2)
+  to [short] ++(0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Y.B2);
+\draw (Y.B2)
+  to [short, -*] ++(0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Z.B2);
+\draw (Z.B2)
+  to [short, -*] ++(0.5, 0) 
+  to [short, -o] ++(0, 0.7) node[above] {N}
+  to [R] ++(1, 0) node[ground]{};
+\node[below, red] at (Z.A1) (ZA1) {$+$};
+\node[below, red] at (Y.A1) (YA1) {$+$};
+\node[below, red] at (X.A1) (ZA1) {$+$};
+\node[below, red] at (Z.B1) (ZB1) {$+$};
+\node[below, red] at (Y.B1) (YB1) {$+$};
+\node[below, red] at (X.B1) (XB1) {$+$};
+\node[above] at (Z.A2) (ZA2) {$-$};
+\node[above] at (Y.A2) (YA2) {$-$};
+\node[above] at (X.A2) (XA2) {$-$};
+\node[above] at (Z.B2) (ZB2) {$-$};
+\node[above] at (Y.B2) (YB2) {$-$};
+\node[above] at (X.B2) (XB2) {$-$};
+\draw[->, red] (-1, 6.5) -- ++(0, -1) node[left] {$I_Z$};
+\draw[->, red] (-1, 3.5) -- ++(0, -1) node[left] {$I_Y$};
+\draw[->, red] (-1, 0.5) -- ++(0, -1) node[left] {$I_X$};
+\draw[->, red] (1, 5.5) -- ++(0, 1) node[left] {$I_Z$};
+\draw[->, red] (1, 2.5) -- ++(0, 1) node[left] {$I_Y$};
+\draw[->, red] (1, -0.5) -- ++(0, 1) node[left] {$I_X$};
+\end{circuitikz}
+
 ### Y - $\Delta$ 連接
 
 * 二次測是三角連接，使線路沒有弦波部分。
@@ -1001,7 +1130,67 @@ Y型和 $\Delta$ 型連接的特點
   to [short, o-] ++(-1, 0);
 \draw[] (11, 4.5) node[right] {W}
   to [short, o-] ++(-3, 0);
+\end{circuitikz}
 
+接線圖
+
+\begin{circuitikz}
+\ctikzset{resistors/scale=0.7}
+\node [transformer core, cute] at (0, 0) (X) {X};
+\node [transformer core, cute] at (0, 3) (Y) {Y};
+\node [transformer core, cute] at (0, 6) (Z) {Z};
+
+\draw (X.A2)
+  to [short] ++(-0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Y.A2);
+\draw (Y.A2)
+  to [short, -*] ++(-0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Z.A2);
+\draw (Z.A2)
+  to [short, -*] ++(-0.5, 0) 
+  to [short, -o] ++(0, 0.7) node[above] {N};
+
+\draw (X.B1)
+  to [short] (Y.B2);
+\draw (Y.B1)
+  to [short] (Z.B2);
+\draw (Z.B1) 
+  to [short] (1.55, 7.05)
+  to [short, *-] ++(0, -8.1)
+  to [short](X.B2);
+
+\draw (X.A1)
+  to [short, i=$I_R$, *-o] ++(-1.5, 0) node[left] {R};
+\draw (Y.A1)
+  to [short, i=$I_S$, *-o] ++(-1.5, 0) node[left] {S};
+\draw (Z.A1)
+  to [short, i=$I_T$, -o] ++(-1.5, 0) node[left] {T};
+\draw (X.B1)
+  to [short, i=$I_U$, *-o] ++(1.5, 0) node[right] {U};
+\draw (Y.B1)
+  to [short, i=$I_V$, *-o] ++(1.5, 0) node[right] {V};
+\draw (Z.B1)
+  to [short, i=$I_W$, -o] ++(1.5, 0) node[right] {W};
+\node[below, red] at (Z.A1) (ZA1) {$+$};
+\node[below, red] at (Y.A1) (YA1) {$+$};
+\node[below, red] at (X.A1) (ZA1) {$+$};
+\node[below, red] at (Z.B1) (ZB1) {$+$};
+\node[below, red] at (Y.B1) (YB1) {$+$};
+\node[below, red] at (X.B1) (XB1) {$+$};
+\node[above] at (Z.A2) (ZA2) {$-$};
+\node[above] at (Y.A2) (YA2) {$-$};
+\node[above] at (X.A2) (XA2) {$-$};
+\node[above] at (Z.B2) (ZB2) {$-$};
+\node[above] at (Y.B2) (YB2) {$-$};
+\node[above] at (X.B2) (XB2) {$-$};
+\draw[->, red] (-1, 6.5) -- ++(0, -1) node[left] {$I_Z$};
+\draw[->, red] (-1, 3.5) -- ++(0, -1) node[left] {$I_Y$};
+\draw[->, red] (-1, 0.5) -- ++(0, -1) node[left] {$I_X$};
+\draw[->, red] (1, 5.5) -- ++(0, 1) node[left] {$I_Z$};
+\draw[->, red] (1, 2.5) -- ++(0, 1) node[left] {$I_Y$};
+\draw[->, red] (1, -0.5) -- ++(0, 1) node[left] {$I_X$};
 \end{circuitikz}
 
 ### $\Delta$ - Y 連接
@@ -1034,6 +1223,68 @@ Y型和 $\Delta$ 型連接的特點
 \draw (GR)
   to [cute inductor, v<=$E_W$, i=$I_W$] ++(0, 2.1)
   to [short, -o] ++(3, 0) node[right] {W};
+\end{circuitikz}
+
+接線圖
+
+\begin{circuitikz}
+\ctikzset{resistors/scale=0.7}
+\node [transformer core, cute] at (0, 0) (X) {X};
+\node [transformer core, cute] at (0, 3) (Y) {Y};
+\node [transformer core, cute] at (0, 6) (Z) {Z};
+
+\draw (X.A1)
+  to [short] (Y.A2);
+\draw (Y.A1)
+  to [short] (Z.A2);
+%\draw (Z.A2)
+%  to [short, -*] ++(-0.5, 0)
+% to [short, -o] ++(0, 0.7) node[above] {N};
+\draw (Z.A1) 
+  to [short] (-1.55, 7.05)
+  to [short, *-] ++(0, -8.1)
+  to [short](X.A2);
+\draw (X.A1)
+  to [short, -o, i=$I_R$, *-] ++(-1.5, 0) node[left] {R};
+\draw (Y.A1)
+  to [short, -o, i=$I_S$, *-] ++(-1.5, 0) node[left] {S};
+\draw (Z.A1)
+  to [short, -o, i=$I_T$] ++(-1.5, 0) node[left] {T};
+\draw (X.B1)
+  to [short, -o, i=$I_U$] ++(1.5, 0) node[right] {U};
+\draw (Y.B1)
+  to [short, -o, i=$I_V$] ++(1.5, 0) node[right] {V};
+\draw (Z.B1)
+  to [short, -o, i=$I_W$] ++(1.5, 0) node[right] {W};
+\draw (X.B2)
+  to [short] ++(0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Y.B2);
+\draw (Y.B2)
+  to [short, -*] ++(0.5, 0)
+  to [short] ++(0, 3)
+  to [short] (Z.B2);
+\draw (Z.B2)
+  to [short, -*] ++(0.5, 0) 
+  to [short, -o] ++(0, 0.7) node[above] {N};
+\node[below, red] at (Z.A1) (ZA1) {$+$};
+\node[below, red] at (Y.A1) (YA1) {$+$};
+\node[below, red] at (X.A1) (ZA1) {$+$};
+\node[below, red] at (Z.B1) (ZB1) {$+$};
+\node[below, red] at (Y.B1) (YB1) {$+$};
+\node[below, red] at (X.B1) (XB1) {$+$};
+\node[above] at (Z.A2) (ZA2) {$-$};
+\node[above] at (Y.A2) (YA2) {$-$};
+\node[above] at (X.A2) (XA2) {$-$};
+\node[above] at (Z.B2) (ZB2) {$-$};
+\node[above] at (Y.B2) (YB2) {$-$};
+\node[above] at (X.B2) (XB2) {$-$};
+\draw[->, red] (-1, 6.5) -- ++(0, -1) node[left] {$I_Z$};
+\draw[->, red] (-1, 3.5) -- ++(0, -1) node[left] {$I_Y$};
+\draw[->, red] (-1, 0.5) -- ++(0, -1) node[left] {$I_X$};
+\draw[->, red] (1, 5.5) -- ++(0, 1) node[left] {$I_Z$};
+\draw[->, red] (1, 2.5) -- ++(0, 1) node[left] {$I_Y$};
+\draw[->, red] (1, -0.5) -- ++(0, 1) node[left] {$I_X$};
 \end{circuitikz}
 
 ### V - V 連接
@@ -1127,12 +1378,12 @@ Y - $\Delta$ 連接中，如果一台變壓器故障時，可以使用 U - V 連
 \end{circuitikz}
 
 * 容量、功率: $\sqrt{3} V_L I_L$
-* 利用率: 86.6 \%
+* 利用率: $86.6 \% (\frac{\sqrt{3}}{2})$ 
 * 輸出容量為原本 Y - $\Delta$ 連接的 57.7 \%
 
 ### T - T 連接
 
-有兩台變壓器，主變壓器M(main transformer)的一、二次都有 50 \% 中間抽頭，之變壓器T(teaser transformer)的一、二次有 86.6 \% 有分接頭，可以執行三相電源的變壓。
+有兩台變壓器，主變壓器M(main transformer)的一、二次都有 50 \% 中間抽頭，支變壓器T(teaser transformer)的一、二次有 86.6 \% ($\frac{\sqrt{3}}{2}$) 有分接頭，可以執行三相電源的變壓。
 
 \begin{circuitikz}[loops/.style={circuitikz/inductors/coils=#1}]
 \ctikzset{inductors/width=1}
@@ -1175,6 +1426,44 @@ Y - $\Delta$ 連接中，如果一台變壓器故障時，可以使用 U - V 連
 \node[] at (12, 0.8) {平衡三相負載};
 \end{circuitikz}
 
+\begin{circuitikz}
+\ctikzset{resistors/scale=0.7}
+\ctikzset{inductors/coils=8, quadpoles/transformer core/width=1.5, quadpoles/transformer core/height=2}
+\node [transformer core, cute] at (0, 0) (M) {};
+\node [transformer core, cute] at (0, 3) (T) {};
+
+\draw (M.A2)
+  to [short, -o] ++(-1, 0) node[left] {R};
+\draw (M.B2)
+  to [short, -o] ++(1, 0) node[right] {U};
+\draw (M.A1)
+  to [short, -o] ++(-1, 0) node[left] {S};
+\draw (M.B1)
+  to [short, -o] ++(1, 0) node[right] {V};
+
+\draw (-0.5, 3.3)
+  to [short, -o] ++(-1.5, 0) node[left] {T};
+\draw (0.5, 3.3)
+  to [short, -o] ++(1.5, 0) node[right] {W};
+\draw (T.A2)
+  to [short] ++(-0.5, 0)
+  to [short] ++(0, -1.55)
+  to [short] ++(1, 0);
+\draw (T.B2)
+  to [short] ++(0.5, 0)
+  to [short] ++(0, -1.55)
+  to [short] ++(-1, 0);
+\draw [red, <->] (-0.7, 1.2) -- ++(0, -1) node[left] {$0.5N_1$};
+\draw [red, <->] (0.7, 1.2) -- ++(0, -1) node[right] {$0.5N_2$};
+
+\draw [red, <->] (-0.7, 3.2) -- ++(0, -1) node[left] {$0.866N_1$};
+\draw [red, <->] (0.7, 3.2) -- ++(0, -1) node[right] {$0.866N_2$};
+\node[draw] at (-1, -0.5) {M};
+\node[draw] at (-1, 4) {T};
+\node[draw] at (1, -0.5) {m};
+\node[draw] at (1, 4) {t};
+\end{circuitikz}
+
 * 一次側感應電勢:
 
 \begin{equation}
@@ -1204,6 +1493,8 @@ S = \sqrt{3} V_L I_L = \sqrt{3} V_p I_p = \sqrt{3} V_M I_M = \sqrt{3} S_M
 \begin{equation}
 \text{利用率} = \frac{\text{輸出功率}}{\text{設備容量}} \approx \frac{\sqrt{3} V_2 I_2}{V_2 I_2 + 0.866 V_2 I_2} = \frac{\sqrt{3}}{1.866} = 0.928 = 92.8 \%
 \end{equation}
+
+如果支變壓器採全部繞組，則利用率 = $\frac{\sqrt{3} E_M I_M}{2 E_M I_M} \approx 0.866$
 
 ### T - L 連接
 
@@ -1244,7 +1535,135 @@ T - L 接線又稱史考特接線，用再把二相換三相，或三相換二�
 
 ## 變壓器的並聯運轉
 
-* 三項變壓器的並聯運轉
+### 單相變壓器並聯運轉
+
+\begin{circuitikz}
+\ctikzset{resistors/scale=0.5}
+\ctikzset{inductors/scale=0.7}
+\draw [fill=cyan!20] (7.7, 0.25) rectangle (8.3, 2.25);
+\node[] at (8.7, 1) {\small 負載 $\vec{Z_L}$};
+\draw (0, 0)
+  to [sV={\small $\vec{V_1}$}, fill=pink] ++(0, 2.5)
+  to [short, -*] ++(3, 0) node[name=A] {}
+  to [short, -*] ++(1, 0) node[name=B] {}
+  to [short] ++(0, 0.5)
+  to [R= {\small $R_A + \jmath X_A$}] ++(1.5,0)
+  to [L, i=$I_{LA}$] ++(1.5, 0) 
+  to [short, -*] ++(0, -0.5)
+  to [short, i=$I_L$] ++(1, 0)
+  to [L] ++(0, -1.25)
+  to [R] ++(0, -1.25)
+  to [short] (0, 0);
+\draw (7.3, 2.5) to[open, v={\small $\vec{V_L}$}] ++(0, -2.5);
+\draw (A) 
+  to [short, -*] ++(0, -0.4) node[name=C] {};
+\draw (C)
+  to [short] ++(-0.7, 0)
+  to [short, -*] ++(0, -0.2) node[name=D] {};
+\draw (C)
+  to [short] ++(0.7, 0)
+  to [short, -*] ++(0, -0.2) node[name=E] {};
+\draw (D)
+  to [short] ++(-0.5, 0)
+  to [R={\small $Y_A$}] ++(0, -1.5)
+  to [short, *-] ++(0.5, 0);
+\draw (D)
+  to [short] ++(0.5, 0)
+  to [L] ++(0, -1.5)
+  to [short, -*] ++(-0.5, 0)
+  to [short, -*] ++(0, -0.4); 
+\draw (E)
+  to [short] ++(-0.5, 0)
+  to [R={\small $Y_B$}] ++(0, -1.5)
+  to [short, *-] ++(0.5, 0);
+\draw (E)
+  to [short] ++(0.5, 0)
+  to [L] ++(0, -1.5)
+  to [short, -*] ++(-0.5, 0)
+  to [short, -*] ++(0, -0.4); 
+\draw (B)
+  to [short] ++(0, -0.5)
+  to [R={\small $R_B + \jmath X_A$}] ++(1.5,0)
+  to [L, i={\small $I_{LB}$}] ++(1.5, 0) 
+  to [short, -*] ++(0, 0.5);
+\end{circuitikz}
+
+優點:
+
+* 提高供電容量，提升經濟效益
+
+條件:
+
+1. 各變壓器一、二次側額定電壓必須相同，否則將產生循環電流，消耗功率、產生熱量
+2. 各變壓器加、減極性不一定要相同，但正要接正端，負要接負端；否則個繞組間將產生很大的循環電流，導致變壓器過熱損壞
+3. 功率因數角(阻抗角 $\theta = \arctan \frac{X}{R}$)要相等，使，並聯後的電流相位一致，避免產生環流
+4. 個變壓器容量不易定要相等，但基本阻抗壓降百分比($Z\%$) 必須相同，如不同，需調整 $Z\%$
+
+以兩台變壓器 A、B 並聯說明如下
+
+\begin{equation}
+\text{阻抗比、容量比} \frac{Z_A}{Z_B} = \frac{Z_{LB}}{Z_{LA}} = \frac{S_{LB}}{S_{LA}}
+\end{equation}
+
+1. 用電阻計算附載分配
+
+  依據並聯電流和電阻成反比\begin{equation}\begin{split}{} & \text{A變壓器分配附載電流} I_{LB} = I_L \frac{Z_B}{Z_A + Z_B} \\{} & \text{B變壓器分配附載電流} I_{LA} = I_L \frac{Z_B}{Z_A + Z_B} \\\end{split} \end{equation}
+  依據 $P = VI$ ，並聯時電壓相同，容量和電流成正比\begin{equation}\begin{split}{} & \text{A變壓器分配附載容量} S_{LB} = S_L \frac{Z_B}{Z_A + Z_B} \\{} & \text{B變壓器分配附載容量} S_{LA} = S_L \frac{Z_B}{Z_A + Z_B} \\\end{split} \end{equation}
+
+2. 用電阻抗壓降百分比(百分率阻抗)
+  當兩變壓器的容量不同時，所有 $Z\%$ 必須調整至相同的基準容量。
+
+  根據 \eqref{eq-pu-old-new}，可以計算出新的基準組抗壓降百分比($V_{B(old)}$ 和 $V_B(new)$ 相同，故 $\frac{V_{B(old)}}{V_{B(new)}} ^ 2 = 1$ 而省略不寫) \begin{equation}Z_{pu(new)} = Z_{pu(old)} \times \frac{S_{pu(new)}}{S_{pu(old)}}\end{equation}或\begin{equation}Z_A \% = \frac{I_{LA} Z_A}{V_2} \times 100 \%Z_B \% = \frac{I_{LA} Z_B}{V_2} \times 100 \%\end{equation}依據 $P = VI$ ，並聯時電壓相同，容量和電流成正比\begin{equation}\begin{split}{} & \text{A變壓器分配附載容量} S_{LB} = S_L \frac{Z_B}{Z_A + Z_B} \\{} & \text{B變壓器分配附載容量} S_{LA} = S_L \frac{Z_B}{Z_A + Z_B} \\\end{split} \end{equation}
+
+* 題目: 108 統測 第10題 
+
+有 A 及 B 兩台額定電壓相等的變壓器，A 之額定容量為 160 kVA，其百分率阻抗為 6\%；B 之額定容量為 240 kVA，其百分率阻抗為 3\%，且兩變壓器之等效電阻與等效電抗之比值相等。若將兩變壓器並聯運轉供應 300 kVA 的負載，則變壓器 A 及 B 的分配負載量 $S_A$ 及 $S_B$ 分別為何？
+
+1. 以 $S_A$ 160 kVA 為基準容量
+
+調整至相同的基準容量
+
+\begin{equation*}
+\begin{split}
+Z_A \% &= 6 \% \\
+Z_B \% &= 3 \% \times \frac{160}{240} = 2 \%
+\end{split}
+\end{equation*}
+
+計算各變壓器負載
+
+\begin{equation*}
+\begin{split}
+S_A \% &= 300 \times \frac{2}{6 + 2} = \frac{300}{4} = 75 kVA \\
+S_B \% &= 300 \times \frac{6}{6 + 2} \\
+       &= 300 - S_A \\
+       &= 200 kVA
+\end{split}
+\end{equation*}
+
+1. 以 $S_B$ 240 kVA 為基準容量
+
+調整至相同的基準容量
+
+\begin{equation*}
+\begin{split}
+Z_A \% &= 6 \% \times \frac{240}{160} = 9 \% \\
+Z_B \% &= 3 \%
+\end{split}
+\end{equation*}
+
+計算各變壓器負載
+
+\begin{equation*}
+\begin{split}
+S_A \% &= 300 \times \frac{3}{9 + 3} = \frac{300}{4} = 75 kVA \\
+S_B \% &= 300 \times \frac{9}{9 + 3} \\
+       &= 300 - S_A \\
+       &= 200 kVA
+\end{split}
+\end{equation*}
+
+### 三項變壓器的並聯運轉
 
 相位相同者才可以並聯運轉
 
@@ -1314,7 +1733,7 @@ T - L 接線又稱史考特接線，用再把二相換三相，或三相換二�
 \begin{split}
 \text{激磁導納} Y_0 &= \frac{I_{oc}}{V_{oc}} (\text{S, 西門子}) \\
 \text{激磁電導} G_e &= \frac{P_{oc}}{V_{oc} ^ 2} \\
-\text{激磁電納} B_m &= \sqrt{T_0 ^ 2 - G_e ^ 2} \\
+\text{激磁電納} B_m &= \sqrt{Y_0 ^ 2 - G_e ^ 2} \\
 \end{split}
 \end{equation}
 
@@ -1506,7 +1925,5 @@ S_A = V_2 I_2 = V_L(V_L + V_H) = V_L I_L (1 + \frac{V_H}{V_L}) = S (1 + a) = S +
 * 為求精確，比流器的激磁電流必須很小，鐵心宜使用高導磁係數的材料，容量以伏安(VA)為單位
 * 二次側一端必須接地，以免發生靜電感應
 * 二次側不能開路，否則會感應高電壓造成危險，沒用時，應將比流器二次側短路
-* 二次側應使用 $2.0 mm^2$ 黑色線
+* 二次側應使用 $2.0 \text{mm}^2$ 黑色線
 * 零相比流計(ZCT): 接於三項電源，當發生欠相(任一相短路)、接地及過負載(過電流)，，流過安相電源的總電流和不等於零，使磁通失去平衡時，ZCT感應出電流，透過電驛起斷開關，將設備與系統隔離，以保護人與設備的安全。
-
-\copyright 2022 林亦恩
