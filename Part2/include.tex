@@ -1,0 +1,26 @@
+\begin{titlepage}
+\begin{circuitikz}[remember picture,overlay,inner sep=0,outer sep=0, xshift=3cm, yshift=-15cm, opacity=0.7]
+   \draw[line width=1mm,fill=gray!15] (0,0) circle (4.2);
+   \draw[] (-6:3.8) {
+     \foreach \i in {0,20,...,350} {
+        arc (\i-6:\i+6:3.8 )  -- (\i+6:3.5)
+        arc (\i+6:\i+14:3.5) -- (\i+14:3.8 )
+    }
+   };
+   \draw[red, fill=blue!20] (-30:2.5) {
+     \foreach \i in {0,60,...,360} {
+       arc (\i-30:\i+20:2.5)--(\i+20:2.7)--(\i+15:2.7)[rounded corners]--(\i+15:3) -- (\i+25:3.1)--(\i+35:3)[sharp corners]--(\i+35:2.7)--(\i+30:2.7)--(\i+30:2.5)
+     }
+   };
+   \draw[fill=white] (0,0) circle (1.8);
+\end{circuitikz}\begin{center}
+    \vspace{\fill}
+
+    {\Huge 電工機械筆記}\vspace{\fill}
+
+    {\Large 林亦恩}\vspace{\fill}
+
+    \today
+    \vspace{\fill}
+  \end{center}
+\end{titlepage}
